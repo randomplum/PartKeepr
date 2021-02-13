@@ -390,9 +390,12 @@ Ext.define("PartKeepr.Components.Project.ProjectReportResultGrid", {
                     context.record.set("itemPrice", partDistributors.getAt(i).get("price"));
                     context.record.set("distributorOrderNumber", partDistributors.getAt(i).get("orderNumber"));
                     context.record.set("orderSum", context.record.get("missing") * context.record.get("itemPrice"));
-                    context.record.set("itemSum", context.record.get("quantity") * context.record.get("itemPrice"));
+                    context.record.set("itemSum", context.record.get("quantity") * context.record.get("part.averagePrice"));
                 }
             }
+        } else
+        {
+            context.record.set("itemSum", context.record.get("quantity") * context.record.get("part.averagePrice"));
         }
 
     },
@@ -447,7 +450,11 @@ Ext.define("PartKeepr.Components.Project.ProjectReportResultGrid", {
             projectPart.set("distributorOrderNumber", cheapestDistributor.get("orderNumber"));
             projectPart.set("itemPrice", cheapestDistributor.get("price"));
             projectPart.set("orderSum", projectPart.get("missing") * projectPart.get("itemPrice"));
-            projectPart.set("itemSum", projectPart.get("quantity") * projectPart.get("itemPrice"));
+            projectPart.set("itemSum", projectPart.get("quantity") * projectPart.get("part.averagePrice"));
+        }
+        else
+        {
+            projectPart.set("itemSum", projectPart.get("quantity") * projectPart.get("part.averagePrice"));
         }
     },
     getCheapestDistributor: function (part)
