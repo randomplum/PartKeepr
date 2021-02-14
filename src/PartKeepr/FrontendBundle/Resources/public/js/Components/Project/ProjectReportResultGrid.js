@@ -164,7 +164,7 @@ Ext.define("PartKeepr.Components.Project.ProjectReportResultGrid", {
         });
 
         this.autoFillButton = Ext.create('Ext.button.Button', {
-            text: i18n("Auto-Fill Distributors"),
+            text: i18n("Calculate Run Cost"),
             iconCls: 'fugue-icon notification-counter-02',
             listeners: {
                 click: this.onAutoFillClick,
@@ -442,20 +442,7 @@ Ext.define("PartKeepr.Components.Project.ProjectReportResultGrid", {
     },
     processCheapestDistributorForProjectPart: function (projectPart)
     {
-        var cheapestDistributor = this.getCheapestDistributor(projectPart.getPart());
-
-        if (cheapestDistributor !== null)
-        {
-            projectPart.setDistributor(cheapestDistributor.getDistributor());
-            projectPart.set("distributorOrderNumber", cheapestDistributor.get("orderNumber"));
-            projectPart.set("itemPrice", cheapestDistributor.get("price"));
-            projectPart.set("orderSum", projectPart.get("missing") * projectPart.get("itemPrice"));
-            projectPart.set("itemSum", projectPart.get("quantity") * projectPart.get("part.averagePrice"));
-        }
-        else
-        {
-            projectPart.set("itemSum", projectPart.get("quantity") * projectPart.get("part.averagePrice"));
-        }
+        projectPart.set("itemSum", projectPart.get("quantity") * projectPart.get("part.averagePrice"));
     },
     getCheapestDistributor: function (part)
     {
